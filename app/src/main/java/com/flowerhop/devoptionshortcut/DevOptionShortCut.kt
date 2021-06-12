@@ -7,6 +7,8 @@ import android.provider.Settings
 import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.provider.Settings.ACTION_SETTINGS
 import android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED
+import android.service.quicksettings.Tile.STATE_ACTIVE
+import android.service.quicksettings.Tile.STATE_INACTIVE
 import android.service.quicksettings.TileService
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -27,6 +29,18 @@ class DevOptionShortCut: TileService() {
             startActivityAndCollapse(getIntent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
         } else {
             startActivityAndCollapse(getIntent(ACTION_SETTINGS))
+        }
+    }
+
+    override fun onStartListening() {
+        super.onStartListening()
+        val devOptionEnable = isDeveloperOptionEnable()
+        val msg = "Developer option is " + if (devOptionEnable) "enable" else "disable"
+        logMsg(msg)
+
+        qsTile.apply {
+            state = if (devOptionEnable) STATE_ACTIVE else STATE_INACTIVE
+            updateTile()
         }
     }
 

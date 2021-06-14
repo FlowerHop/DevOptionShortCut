@@ -22,7 +22,7 @@ class DevOptionShortCut: TileService() {
         super.onClick();
         val devOptionEnable = isDeveloperOptionEnable()
 
-        val msg = "Developer option is " + if (devOptionEnable) "enable" else "disable"
+        val msg = "Developer option is ${if (devOptionEnable) "enable" else "disable"}"
         logMsg(msg)
 
         if (devOptionEnable) {
@@ -35,7 +35,7 @@ class DevOptionShortCut: TileService() {
     override fun onStartListening() {
         super.onStartListening()
         val devOptionEnable = isDeveloperOptionEnable()
-        val msg = "Developer option is " + if (devOptionEnable) "enable" else "disable"
+        val msg = "Developer option is ${if (devOptionEnable) "enable" else "disable"}"
         logMsg(msg)
 
         qsTile.apply {
